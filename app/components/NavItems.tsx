@@ -7,7 +7,7 @@ type Props = {
     isMobile: boolean,
 }
 
-export const  navItems = [
+export const navItems = [
     {
         name: "Home",
         url: '/'
@@ -30,45 +30,45 @@ export const  navItems = [
     }
 ]
 
-const NavItems = ({activeItem,  isMobile}: Props) => {
-  return (
-    <>
-    <div className="hidden 800px:flex">
-        {
-            navItems && navItems.map((item, index) => (
-                <Link href={item.url} key={index} passHref
-                >
-                    <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "dark:text-white text-black"} text-[18px] px-6 font-Poppins font-[400]`}>
-                        {item.name}
-                    </span>
-                </Link>
-            ))
-        }
-    </div>
-    {
-        isMobile && (
-            <div className='800px:hidden mt-5' >
-                <div className="w-full text-center py-6">
-                    {
-                        navItems && navItems.map((item, index) => (
-                            <div key={index}> 
-                                <Link href={"/"} passHref key={index}
-                            >
-                                <span className={`${activeItem === index? "dark:text-yellow-200 text-[crimson]" : "dark:text-white text-black"} text-[18px] px-6 font-Poppins font-[400]`}>
-                                </span>
+const NavItems = ({ activeItem, isMobile }: Props) => {
+    return (
+        <>
+            <div className="hidden 800px:flex">
+                {
+                    navItems && navItems.map((item, index) => (
+                        <Link href={item.url} key={index} passHref
+                        >
+                            <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "dark:text-white text-black"} text-[18px] px-6 font-Poppins font-[400]`}>
                                 {item.name}
-                            </Link>
-
-                            </div>
-                            
-                        ))
-                    }
-                </div>
+                            </span>
+                        </Link>
+                    ))
+                }
             </div>
-        )
-    }
-    </>
-  )
+            {
+                isMobile && (
+                    <div className='800px:hidden mt-5' >
+                        <div className="w-full text-center py-6">
+                            {
+                                navItems && navItems.map((item, index) => (
+                                    <div key={index} className='flex justify-start py-3'>
+                                        <Link href={"/"} passHref key={index}
+                                        >
+                                            <span className={`${activeItem === index ? "dark:text-yellow-200 text-[crimson]" : "dark:text-white text-black"} text-[18px] px-6 font-Poppins font-[400]`}>
+                                            </span>
+                                            {item.name}
+                                        </Link>
+
+                                    </div>
+
+                                ))
+                            }
+                        </div>
+                    </div>
+                )
+            }
+        </>
+    )
 }
 
 export default NavItems
