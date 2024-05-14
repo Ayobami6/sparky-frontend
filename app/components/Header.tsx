@@ -32,9 +32,9 @@ const Header = ({ open, setOpen, activeItem }: Props) => {
 
     }
     return (
-        <div className='w-full relative'
+        <div className='w-full'
         >
-            <div className={`${active}` ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-dark shadow-xl transition duration-500" : "w-full border-b dark:border-white h-[80px] z-[80] dark:shadow"}>
+            <div className={`${active}` ? "dark:bg-opacity-50 dark:bg-gradient-to-b bg-white dark:from-gray-900 dark:to-black top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-dark shadow-xl transition duration-500" : "w-full border-b dark:border-gray-500 h-[80px] z-[80] dark:shadow"}>
                 <div className="w-[95%] 800px:w-[92%] m-auto py-2 h-full">
                     <div className='w-full h-[80px] flex justify-between p-3'>
                         <div className='flex items-center'>
@@ -67,7 +67,7 @@ const Header = ({ open, setOpen, activeItem }: Props) => {
                             </div>
                             <HiOutlineUserCircle
                                 size={25}
-                                className='cursor-pointer dark:text-white text-black'
+                                className='hidden 800px:block cursor-pointer dark:text-white text-black'
                                 onClick={() => setOpen(true)}
                             />
 
@@ -80,10 +80,20 @@ const Header = ({ open, setOpen, activeItem }: Props) => {
                 {openSidebar && (
                     <div className='fixed w-full h-screen top-0 left-0 z-[99999] dark:bg-[unset] bg-[#00000024]' onClick={handelClose} id='screen'>
                         <div className='w-[70%] fixed z-[999999999] bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0'>
+                            <div className='p-6 text-black dark:text-white'>
+                                <div>
+
+                                    <Link href={"/signup"} passHref>Sign up</Link>
+                                </div>
+                                <div>
+                                    <Link href={"/login"} passHref>Log in</Link>
+                                </div>
+                            </div>
+                            <hr />
                             <div className=''>
                                 <NavItems activeItem={activeItem} isMobile={true} />
                             </div>
-                            <div className='pl-10'>
+                            <div className='pl-5'>
                                 <HiOutlineUserCircle
                                     size={55}
                                     className='cursor-pointer dark:text-white text-black'
