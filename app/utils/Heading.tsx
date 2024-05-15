@@ -1,18 +1,24 @@
 import React, { FC } from 'react'
+import Head from 'next/head'
 
 type Props = {
-    title: string
-    description: string
-    keywords: string
+  title: string
+  description: string
+  keywords: string
 }
 
-const Heading: FC<Props> = ({title, description, keywords}) => {
+const Heading: FC<Props> = ({ title, description, keywords }) => {
   return (
     <>
-    <title>{title}</title>
-    <meta name='description' content={description} />
-    <meta name='keywords' content={keywords} />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="32x32" type="image/png" />
+      </Head>
+      <title>{title}</title>
+      <meta name='description' content={description} />
+      <meta name='keywords' content={keywords} />
+      <meta name='viewport' content='width=device-width, initial-scale=1' />
+
+
     </>
   )
 }
