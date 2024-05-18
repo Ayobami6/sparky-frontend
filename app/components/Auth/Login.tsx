@@ -6,6 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../constants/styles'
 import { useLoginMutation } from '@/redux/features/auth/authApi';
 import { toast } from 'react-hot-toast';
+import { useSelector } from 'react-redux'
 type Props = {
     setRoute: (route: string) => void
     setOpen: (open: boolean) => void
@@ -24,6 +25,11 @@ const schema = Yup.object().shape({
 const Login = ({ setRoute, setOpen }: Props) => {
     const [show, setShow] = useState(false);
     const [login, { isSuccess, data, error }] = useLoginMutation();
+    const { accessToken, refreshToken } = useSelector((state) => state.auth)
+    // set access and refreshtoken to local storage
+    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('refreshToken', refreshToken)
+    // set access and refreshtoken to local storage
     const formik = useFormik({
         initialValues: {
             email: '',

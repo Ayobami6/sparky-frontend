@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { api } from "../api/apiSlice";
-import { userRegistration, userLogin } from "./authSlice";
+import { userRegistration, userLogin, tokenRefresh, loadUser } from "./authSlice";
 
 type RegistrationResponse = {
     message: string
@@ -60,7 +60,7 @@ export const authApi: any = createApi({
                     const result = await queryFulfilled;
                     dispatch(userLogin({
                         accessToken: result?.data.accessToken,
-                        refreshToken: result?.data.accessToken
+                        refreshToken: result?.data.refreshToken
                     }));
                 } catch (error: any) {
                     console.log(error);
@@ -68,8 +68,49 @@ export const authApi: any = createApi({
                 }
             }
 
-        })
+        }),
+        refreshToken: builder.mutation({
+            query: (payload) => ({
+                url: "auth/refresh",
+                method: "POST",
+                body: payload,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(tokenRefresh({
+                        accessToken: result?.data.accessToken,
+                        refreshToken: result?.data.refreshToken
+                    }));
+                } catch (error: any) {
+                    console.log(error);
+
+                }
+            }
+
+        }),
+        loadUser: builder.query({
+            query: (payload) => ({
+                url: "user/user-info",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // Replace 'yourAccessToken' with the actual access token
+                },
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(loadUser({
+                        user: result?.data
+                    }));
+                } catch (error: any) {
+                    console.log(error);
+
+                }
+            }
+
+        }),
     })
 });
 
-export const { useRegisterMutation, useActivationMutation, useLoginMutation } = authApi
+export const { useRegisterMutation, useActivationMutation, useLoginMutation, useRefreshTokenMutation } = authApi

@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavItems from './NavItems'
 import Image from 'next/image';
 import ThemeSwitch from './ThemeSwitch'
@@ -9,6 +9,8 @@ import CustomModal from '../utils/CustomModal';
 import Login from './Auth/Login';
 import SignUp from './Auth/SignUp'
 import Verification from './Auth/Verification';
+import { useRefreshTokenMutation } from '@/redux/features/auth/authApi';
+import { useSelector } from 'react-redux';
 
 type Props = {
     open: boolean
@@ -21,6 +23,8 @@ type Props = {
 const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOPenSidebar] = useState(false);
+    const user = useSelector((state) => state.auth.user)
+    const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
 
     if (typeof window !== 'undefined') {
         window.addEventListener('scroll', () => {
@@ -37,6 +41,22 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
         }
 
     }
+    console.log(user)
+    // useEffect(() => {
+    //     console.log(tokenRefresh)
+
+    //     const refresh = async () => {
+    //         if (tokenRefresh) {
+    //             const data = {
+    //                 refreshToken: tokenRefresh
+    //             }
+    //             await refreshToken(data);
+    //         }
+
+    //     }
+    //     refresh()
+
+    // }, [isSuccess, error])
     return (
         <div className='w-full'
         >
