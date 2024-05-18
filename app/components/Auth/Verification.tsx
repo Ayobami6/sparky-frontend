@@ -16,6 +16,7 @@ type VerifyNumber = {
 
 const Verification = ({ setRoute }: Props) => {
     const [invalidError, setInvalidError] = useState(false);
+    const
     const inputRefs = [
         useRef(null),
         useRef(null),
