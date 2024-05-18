@@ -13,6 +13,11 @@ type RegistrationPayload = {
     name: string;
 }
 
+type ActivationPayload = {
+    activationToken: string;
+    activation_code: string;
+}
+
 export const authApi: any = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/v1/" }),
@@ -37,15 +42,15 @@ export const authApi: any = createApi({
                 }
             }
         }),
-        activation: builder.mutation({
-            query: ({ activationToken, activation_code }) => ({
+        activation: builder.mutation<ActivationPayload, void>({
+            query: (payload) => ({
                 url: `auth/verify`,
                 method: "POST",
-                data: { activationToken, activation_code },
+                body: payload,
             }),
 
         })
     })
 });
 
-export const { useRegisterMutation } = authApi
+export const { useRegisterMutation, useActivationMutation } = authApi

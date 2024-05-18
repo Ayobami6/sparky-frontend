@@ -50,7 +50,8 @@ const SignUp = ({ setRoute }: Props) => {
         onSubmit: async ({ name, email, password }) => {
             const data = {
                 name,
-                email, password
+                email,
+                password
             }
             await register(data)
         }
