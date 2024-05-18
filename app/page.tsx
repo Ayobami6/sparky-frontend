@@ -26,7 +26,7 @@ const Page = (props: Props) => {
         setRoute={setRoute}
         route={route}
       />
-      <Hero />
+      <Hero setOpen={setOpen} />
     </div>
 
   )

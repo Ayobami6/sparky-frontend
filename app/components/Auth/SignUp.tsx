@@ -30,7 +30,7 @@ const SignUp = ({ setRoute }: Props) => {
         },
         validationSchema: schema,
         onSubmit: async (values) => {
-            console.log(values)
+            setRoute("Verification")
         }
     })
     const { errors, touched, values, handleChange, handleSubmit } = formik;
@@ -41,10 +41,10 @@ const SignUp = ({ setRoute }: Props) => {
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='mb-4'>
-                    <label htmlFor="email" className={`${styles}`}>
+                    <label htmlFor="name" className={`${styles}`}>
                         Enter your name
                     </label>
-                    <input type="text" name='' value={values.name} onChange={handleChange} id='email' placeholder='Enter your name' className={`${errors.name && touched.name && "border-red-500"} ${styles.input} `} />
+                    <input type="text" name='' value={values.name} onChange={handleChange} id='name' placeholder='Enter your name' className={`${errors.name && touched.name && "border-red-500"} ${styles.input} `} />
                     {errors.name && touched.name && <p className={`${styles.error}`}>{errors.name}</p>}
                 </div>
                 <label htmlFor="email" className={`${styles}`}>
