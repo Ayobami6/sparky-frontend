@@ -60,7 +60,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
             }
         }
 
-    })
+    }, [isSuccess, error])
     const { errors, touched, values, handleChange, handleSubmit } = formik;
     return (
         <div className='w-full'>
