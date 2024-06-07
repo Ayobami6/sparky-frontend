@@ -4,6 +4,7 @@ import { VscWorkspaceTrusted } from 'react-icons/vsc'
 import { styles } from '../../constants/styles'
 import { useSelector } from 'react-redux'
 import { useActivationMutation } from '@/redux/features/auth/authApi';
+import { stateProps } from './Login'
 
 type Props = {
     setRoute: (route: string) => void
@@ -16,9 +17,11 @@ type VerifyNumber = {
     "3": string;
 }
 
+type InputRef = React.RefObject<HTMLInputElement>;
+
 const Verification = ({ setRoute }: Props) => {
     const [invalidError, setInvalidError] = useState(false);
-    const { activationToken } = useSelector((state) => state.auth);
+    const { activationToken } = useSelector((state: stateProps) => state?.auth);
     const [activation, { isSuccess, error }] = useActivationMutation();
 
     useEffect(() => {
@@ -35,8 +38,8 @@ const Verification = ({ setRoute }: Props) => {
                 console.log("An error occurred!")
             }
         }
-    }, [isSuccess, error])
-    const inputRefs = [
+    }, [isSuccess, error, setRoute])
+    const inputRefs: InputRef[] = [
         useRef(null),
         useRef(null),
         useRef(null),

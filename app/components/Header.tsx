@@ -6,7 +6,7 @@ import Image from 'next/image';
 import ThemeSwitch from './ThemeSwitch'
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from 'react-icons/hi'
 import CustomModal from '../utils/CustomModal';
-import Login from './Auth/Login';
+import Login, { stateProps } from './Auth/Login';
 import SignUp from './Auth/SignUp'
 import Verification from './Auth/Verification';
 import { useRefreshTokenMutation } from '@/redux/features/auth/authApi';
@@ -23,7 +23,7 @@ type Props = {
 const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOPenSidebar] = useState(false);
-    const user = useSelector((state) => state.auth.user)
+    const user = useSelector((state: stateProps) => state.auth.user)
     const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
 
     if (typeof window !== 'undefined') {

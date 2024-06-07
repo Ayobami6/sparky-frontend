@@ -12,6 +12,15 @@ type Props = {
     setOpen: (open: boolean) => void
 }
 
+export interface stateProps {
+    auth: {
+        accessToken: string
+        refreshToken: string
+        activationToken: string
+        user: object
+    }
+}
+
 // yup scheme for form validation
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -25,7 +34,7 @@ const schema = Yup.object().shape({
 const Login = ({ setRoute, setOpen }: Props) => {
     const [show, setShow] = useState(false);
     const [login, { isSuccess, data, error }] = useLoginMutation();
-    const { accessToken, refreshToken } = useSelector((state) => state.auth)
+    const { accessToken, refreshToken } = useSelector((state: stateProps) => state?.auth)
     // set access and refreshtoken to local storage
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
@@ -60,7 +69,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
             }
         }
 
-    }, [isSuccess, error])
+    }, [isSuccess, error, setOpen])
     const { errors, touched, values, handleChange, handleSubmit } = formik;
     return (
         <div className='w-full'>
@@ -100,7 +109,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     <FcGoogle size={30} className='ml-2 cursor-pointer' />
                 </div>
                 <div className='flex justify-center font-Poppins'>
-                    Don't have an account?
+                    Don`&apos;`t have an account?
                     <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => setRoute('Signup')}>
                         Sign up
                     </p>
