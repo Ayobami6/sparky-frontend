@@ -9,8 +9,10 @@ import CustomModal from '../utils/CustomModal';
 import Login, { stateProps } from './Auth/Login';
 import SignUp from './Auth/SignUp'
 import Verification from './Auth/Verification';
-import { useRefreshTokenMutation } from '@/redux/features/auth/authApi';
+import { useRefreshTokenMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
 import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-hot-toast';
 
 type Props = {
     open: boolean
@@ -23,8 +25,37 @@ type Props = {
 const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOPenSidebar] = useState(false);
-    const user = useSelector((state: stateProps) => state.auth.user)
-    const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
+    const { user } = useSelector((state: stateProps) => state.auth)
+    // const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
+    const { data } = useSession();
+    const [socialAuth, { isSuccess, error: socialAuthError }] = useSocialAuthMutation();
+
+    console.log(data);
+    console.log(`This is the user: ${user}`,)
+    console.log(isSuccess)
+
+    const socialLogin = async () => {
+        const payload = {
+            name: data?.user?.name,
+            email: data?.user?.email
+        }
+        await socialAuth(payload);
+    }
+
+    useEffect(() => {
+        if (!user) {
+            if (data) {
+                console.log("got here");
+                socialLogin();
+            }
+        }
+        if (isSuccess) {
+            console.log("Testing Toast")
+            toast.success("Login Successfully")
+            setOpen(false)
+        }
+    }, [data, user]);
+    console.log(isSuccess)
 
     if (typeof window !== 'undefined') {
         window.addEventListener('scroll', () => {
@@ -41,7 +72,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
         }
 
     }
-    console.log(user)
+    // console.log(user)
     // useEffect(() => {
     //     console.log(tokenRefresh)
 

@@ -29,7 +29,7 @@ const authSlice = createSlice({
             state.refreshToken = action.payload.refreshToken
         },
         loadUser: (state, action) => {
-            state.user = action.payload.user
+            state.user = action.payload.user;
             localStorage.setItem('user', JSON.parse(state?.user))
         }
     },

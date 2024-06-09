@@ -69,6 +69,26 @@ export const authApi: any = createApi({
             }
 
         }),
+        socialAuth: builder.mutation({
+            query: (payload) => ({
+                url: "auth/social-auth",
+                method: "POST",
+                body: payload,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(userLogin({
+                        accessToken: result?.data.accessToken,
+                        refreshToken: result?.data.refreshToken
+                    }));
+                } catch (error: any) {
+                    console.log(error);
+
+                }
+            }
+
+        }),
         refreshToken: builder.mutation({
             query: (payload) => ({
                 url: "auth/refresh",
@@ -101,8 +121,9 @@ export const authApi: any = createApi({
                 try {
                     const result = await queryFulfilled;
                     dispatch(loadUser({
-                        user: result?.data
+                        user: JSON.stringify(result?.data)
                     }));
+                    console.log(result);
                 } catch (error: any) {
                     console.log(error);
 
@@ -113,4 +134,4 @@ export const authApi: any = createApi({
     })
 });
 
-export const { useRegisterMutation, useActivationMutation, useLoginMutation, useRefreshTokenMutation } = authApi
+export const { useRegisterMutation, useActivationMutation, useLoginMutation, useRefreshTokenMutation, useSocialAuthMutation } = authApi

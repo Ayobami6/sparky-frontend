@@ -4,9 +4,11 @@ import * as Yup from 'yup'
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../constants/styles'
-import { useLoginMutation } from '@/redux/features/auth/authApi';
+import { useLoginMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
 import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux'
+import { signIn, useSession } from 'next-auth/react'
+
 type Props = {
     setRoute: (route: string) => void
     setOpen: (open: boolean) => void
@@ -33,8 +35,13 @@ const schema = Yup.object().shape({
 
 const Login = ({ setRoute, setOpen }: Props) => {
     const [show, setShow] = useState(false);
-    const [login, { isSuccess, data, error }] = useLoginMutation();
+    const [login, { isSuccess, error }] = useLoginMutation();
     const { accessToken, refreshToken } = useSelector((state: stateProps) => state?.auth)
+
+    // const handleGoogleLogin = () => {
+    //     signIn('google');
+    // }
+
     // set access and refreshtoken to local storage
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
@@ -105,8 +112,8 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     or Join with
                 </h5>
                 <div className='flex justify-center my-3'>
-                    <AiFillGithub size={30} className='mr-2 cursor-pointer' />
-                    <FcGoogle size={30} className='ml-2 cursor-pointer' />
+                    <AiFillGithub size={30} className='mr-2 cursor-pointer' onClick={() => signIn("github")} />
+                    <FcGoogle size={30} className='ml-2 cursor-pointer' onClick={() => signIn("google")} />
                 </div>
                 <div className='flex justify-center font-Poppins'>
                     Don`&apos;`t have an account?
