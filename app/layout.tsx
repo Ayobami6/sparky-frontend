@@ -6,6 +6,9 @@ import { ThemeProvider } from "./utils/theme-provider";
 import { Toaster } from "react-hot-toast";
 import { AppProvider } from "./Provider";
 import { SessionProvider } from "next-auth/react";
+import { useLoadUserQuery } from "@/redux/features/auth/authApi";
+import Loader from "./components/Loader";
+import { FC } from "react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -34,7 +37,10 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${josefin_sans.variable} !bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}>
         <AppProvider>
           <SessionProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>{children}
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <ProfileLoading>
+                {children}
+              </ProfileLoading>
               <Toaster position="top-center" reverseOrder={false} />
             </ThemeProvider>
           </SessionProvider>
@@ -43,3 +49,21 @@ export default function RootLayout({
     </html>
   );
 }
+
+
+type ProfileProps = {
+  children: React.ReactNode;
+}
+
+const ProfileLoading: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isLoading } = useLoadUserQuery({})
+  console.log(isLoading)
+  return (
+    <>
+      {isLoading ? <Loader /> : <>{children}</>
+
+      }
+    </>
+  )
+
+};

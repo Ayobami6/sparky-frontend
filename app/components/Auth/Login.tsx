@@ -8,6 +8,8 @@ import { useLoginMutation, useSocialAuthMutation } from '@/redux/features/auth/a
 import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux'
 import { signIn, useSession } from 'next-auth/react'
+import Loader from '../Loader'
+import SubmitButton from '../SubmitButton'
 
 type Props = {
     setRoute: (route: string) => void
@@ -35,7 +37,7 @@ const schema = Yup.object().shape({
 
 const Login = ({ setRoute, setOpen }: Props) => {
     const [show, setShow] = useState(false);
-    const [login, { isSuccess, error }] = useLoginMutation();
+    const [login, { isSuccess, error, isLoading }] = useLoginMutation();
     const { accessToken, refreshToken } = useSelector((state: stateProps) => state?.auth)
 
     // const handleGoogleLogin = () => {
@@ -103,9 +105,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     }
                     {errors.password && touched.password && <p className={`${styles.error}`}>{errors.password}</p>}
                 </div>
-                <div className='w-full mt-5'>
-                    <input type="submit" value="Login" className={`${styles.button}`} />
-                </div>
+                <SubmitButton isLoading={isLoading} />
                 <br />
 
                 <h5 className='text-center pt-4 font-Poppins text-[14px] text-black dark:text-white'>

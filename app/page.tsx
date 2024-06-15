@@ -12,7 +12,7 @@ const Page = (props: Props) => {
   const [activeItem, setActiveItem] = useState(0)
   const [route, setRoute] = useState('Login')
   return (
-    <div className="">
+    <div className="relative">
       <Heading
         title='Sparky E-learning'
         description='E-learning Platform'
