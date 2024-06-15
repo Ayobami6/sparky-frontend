@@ -84,13 +84,13 @@ const Login = ({ setRoute, setOpen }: Props) => {
                 Login
             </h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email" className={`${styles}`}>
+                <label htmlFor="email" className={`${styles.label}`}>
                     Enter your Email
                 </label>
                 <input type="email" name='' value={values.email} onChange={handleChange} id='email' placeholder='Enter your email' className={`${errors.email && touched.email && "border-red-500"} ${styles.input} `} />
                 {errors.email && touched.email && <p className={`${styles.error}`}>{errors.email}</p>}
                 <div className='w-full mt-5 relative mb-1'>
-                    <label htmlFor="password" className={`${styles}`}>
+                    <label htmlFor="password" className={`${styles.label}`}>
                         Enter your Password
                     </label>
                     <input type={!show ? "password" : "text"} name='' value={values.password} onChange={handleChange} id='password' placeholder='Enter your password' className={`${errors.password && touched.password && "border-red-500"} ${styles.input} `} />
@@ -112,11 +112,11 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     or Join with
                 </h5>
                 <div className='flex justify-center my-3'>
-                    <AiFillGithub size={30} className='mr-2 cursor-pointer' onClick={() => signIn("github")} />
+                    <AiFillGithub size={30} className='mr-2 cursor-pointer text-black dark:text-white' onClick={() => signIn("github")} />
                     <FcGoogle size={30} className='ml-2 cursor-pointer' onClick={() => signIn("google")} />
                 </div>
-                <div className='flex justify-center font-Poppins'>
-                    Don`&apos;`t have an account?
+                <div className='flex justify-center text-black dark:text-white font-Poppins'>
+                    Don&apos;t have an account?
                     <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => setRoute('Signup')}>
                         Sign up
                     </p>
