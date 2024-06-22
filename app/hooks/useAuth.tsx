@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 export default function useAuth() {
     const user = useSelector((state) => state.auth.user);
-    let isAuthenticated = false;
+    let isAuthenticated = true;
     if (user) {
         isAuthenticated = true
     }
