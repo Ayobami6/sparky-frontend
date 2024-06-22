@@ -51,7 +51,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
                 socialLogin();
             }
         }
-        if (isSuccess) {
+        if (user) {
             console.log("Testing Toast")
             toast.success("Login Successfully")
             setOpen(false)
