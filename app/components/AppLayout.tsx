@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import Hero from '../components/Hero'
 import { useAppContext } from '@/pages/ContextProvider'
 import { setOpen, setClose, setRoute } from '@/redux/features/modal/modalSlice';
+import { stateProps } from './Auth/Login';
 
 type Props = {}
 
@@ -20,12 +21,14 @@ const AppLayout = (props: Props) => {
     // const { open, setOpen } = useAppContext()
     const { open, route } = useSelector((state: ModalStateProps) => state.modal)
     const [activeItem, setActiveItem] = useState(0)
+    const user = JSON.parse(localStorage.getItem('user') as any)
+    console.log('user:', user);
 
 
     return (
         <div>
             <Heading
-                title='Sparky E-learning'
+                title={user ? `${user?.name} Profile` : "Sparky E-learning"}
                 description='E-learning Platform'
                 keywords='Programming, Technology, Frontend, Backend, Devops, Cloud'
             />

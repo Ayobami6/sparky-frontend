@@ -74,22 +74,6 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
         }
 
     }
-    // console.log(user)
-    // useEffect(() => {
-    //     console.log(tokenRefresh)
-
-    //     const refresh = async () => {
-    //         if (tokenRefresh) {
-    //             const data = {
-    //                 refreshToken: tokenRefresh
-    //             }
-    //             await refreshToken(data);
-    //         }
-
-    //     }
-    //     refresh()
-
-    // }, [isSuccess, error])
     return (
         <>
             <div className='w-full'
