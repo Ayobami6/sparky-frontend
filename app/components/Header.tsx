@@ -11,7 +11,7 @@ import SignUp from './Auth/SignUp'
 import Verification from './Auth/Verification';
 import { useRefreshTokenMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 
 type Props = {
@@ -55,6 +55,9 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
             console.log("Testing Toast")
             toast.success("Login Successfully")
             setOpen(false)
+        }
+        if (data === null) {
+            signOut({ redirect: false })
         }
     }, [data, user]);
     console.log(isSuccess)

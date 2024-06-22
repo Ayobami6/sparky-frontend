@@ -5,6 +5,7 @@ import AppLayout from '../components/AppLayout'
 import Hero from '../components/Hero'
 import SidebarProfile from '../components/Profile/SidebarProfile'
 import { redirect } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 
 type Props = {}
 
@@ -16,9 +17,10 @@ const Profile = ({ }: Props) => {
     const [active, setActive] = useState(1)
 
 
-    const logOutHandler = () => {
+    const logOutHandler = async () => {
         localStorage.clear();
-        redirect('/');
+        sessionStorage.clear();
+        await signOut();
     }
 
 
