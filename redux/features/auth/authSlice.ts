@@ -32,7 +32,7 @@ const authSlice = createSlice({
     },
     loadUser: (state, action) => {
       state.user = action.payload.user;
-      localStorage.setItem("user", state?.user);
+      localStorage.setItem("user", state?.user as any);
     },
   },
 });

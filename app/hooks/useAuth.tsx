@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { useSelector } from 'react-redux'
+import { stateProps } from "../components/Auth/Login";
 
 export default function useAuth() {
-    const user = useSelector((state) => state.auth.user);
+    const user = useSelector((state: stateProps) => state.auth.user);
     let isAuthenticated = false;
     if (user) {
         isAuthenticated = true
