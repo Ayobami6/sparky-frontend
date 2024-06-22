@@ -41,7 +41,7 @@ const SignUp = ({ setRoute }: Props) => {
                 toast.error(message)
             }
         }
-    }, [isSuccess, error])
+    }, [isSuccess, error, data, dispatch, setRoute])
     const formik = useFormik({
         initialValues: {
             name: '',

@@ -79,7 +79,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
             }
         }
 
-    }, [isSuccess, error, setOpen])
+    }, [isSuccess, error, setOpen, dispatch])
     const { errors, touched, values, handleChange, handleSubmit } = formik;
     return (
         <div className='w-full'>

@@ -36,6 +36,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     console.log(`This is the user: ${user}`,)
     console.log(isSuccess)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const socialLogin = async () => {
         const payload = {
             name: data?.user?.name,
@@ -59,7 +60,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
         if (data === null) {
             signOut({ redirect: false })
         }
-    }, [data, user]);
+    }, [data, setOpen, socialLogin, user]);
     console.log(isSuccess)
 
     if (typeof window !== 'undefined') {
