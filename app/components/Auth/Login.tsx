@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../constants/styles'
 import { useLoginMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
 import { toast } from 'react-hot-toast';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { signIn, useSession } from 'next-auth/react'
 import Loader from '../Loader'
 import SubmitButton from '../SubmitButton'
@@ -39,6 +39,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
     const [show, setShow] = useState(false);
     const [login, { isSuccess, error, isLoading }] = useLoginMutation();
     const { accessToken, refreshToken } = useSelector((state: stateProps) => state?.auth)
+    const dispatch = useDispatch();
 
     // const handleGoogleLogin = () => {
     //     signIn('google');
@@ -66,7 +67,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
     useEffect(() => {
         if (isSuccess) {
             toast.success("Login Successfully")
-            setOpen(false)
+            dispatch(setOpen(false) as any);
         }
         if (error) {
             if ("data" in error) {
@@ -117,7 +118,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
                 </div>
                 <div className='flex justify-center text-black dark:text-white font-Poppins'>
                     Don&apos;t have an account?
-                    <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => setRoute('Signup')}>
+                    <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => dispatch(setRoute('Signup') as any)}>
                         Sign up
                     </p>
                 </div>

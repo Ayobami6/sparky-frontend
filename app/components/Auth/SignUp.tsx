@@ -6,6 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../constants/styles'
 import { useRegisterMutation } from '../../../redux/features/auth/authApi'
 import { toast } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
 
 type Props = {
     setRoute: (route: string) => void
@@ -25,12 +26,13 @@ const schema = Yup.object().shape({
 const SignUp = ({ setRoute }: Props) => {
     const [show, setShow] = useState(false);
     const [register, { isSuccess, data, error }] = useRegisterMutation();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (isSuccess) {
             const message = data?.message || "Registration Successful"
             toast.success(message)
-            setRoute("Verification")
+            dispatch(setRoute("Verification") as any)
         }
         if (error) {
             if ("data" in error) {
@@ -103,7 +105,7 @@ const SignUp = ({ setRoute }: Props) => {
                 </div>
                 <div className='flex justify-center font-Poppins'>
                     Already have an account?
-                    <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => setRoute('Login')}>
+                    <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => dispatch(setRoute('Login') as any)}>
                         Login
                     </p>
                 </div>

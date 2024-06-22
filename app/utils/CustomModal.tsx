@@ -1,5 +1,6 @@
 import { Modal, Box } from '@mui/material'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 type Props = {
     open: boolean
@@ -10,10 +11,11 @@ type Props = {
 }
 
 const CustomModal = ({ open, setOpen, setRoute, component: Component, activeItem }: Props) => {
+    const dispatch = useDispatch()
     return (
         <Modal
             open={open}
-            onClose={() => setOpen(false)}
+            onClose={() => dispatch(setOpen(false) as any)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
 

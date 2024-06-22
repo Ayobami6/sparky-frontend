@@ -8,7 +8,7 @@ import { AppProvider } from "./Provider";
 import { SessionProvider } from "next-auth/react";
 import { useLoadUserQuery } from "@/redux/features/auth/authApi";
 import Loader from "./components/Loader";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -57,6 +57,16 @@ type ProfileProps = {
 
 const ProfileLoading: FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isLoading } = useLoadUserQuery({})
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) return (
+    <Loader />
+  ); // Don't render anything until after hydration
+
   console.log(isLoading)
   return (
     <>
