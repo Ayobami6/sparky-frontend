@@ -35,7 +35,7 @@ const SidebarProfile = ({ user, active, avatar, setActive, setAvatar, logOutHand
                 <SiCoursera size={20} fill='#fff' />
                 <h5 className='pl-2 800px:block hidden dark:text-white'>All Enrolled Courses</h5>
             </div>
-            <div className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 4 ? "dark:bg-slate-800 bg-white shadow-md" : "bg-transparent"}`} onClick={() => logOutHandler}>
+            <div className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 4 ? "dark:bg-slate-800 bg-white shadow-md" : "bg-transparent"}`} onClick={() => logOutHandler()}>
                 <AiOutlineLogout size={20} fill='#fff' />
                 <h5 className='pl-2 800px:block hidden dark:text-white'>Logout</h5>
             </div>

@@ -4,6 +4,7 @@ import Protected from '../hooks/useProtected'
 import AppLayout from '../components/AppLayout'
 import Hero from '../components/Hero'
 import SidebarProfile from '../components/Profile/SidebarProfile'
+import { redirect } from 'next/navigation'
 
 type Props = {}
 
@@ -16,7 +17,8 @@ const Profile = ({ }: Props) => {
 
 
     const logOutHandler = () => {
-        console.log("Logout successful")
+        localStorage.clear();
+        redirect('/');
     }
 
 
