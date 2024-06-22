@@ -32,6 +32,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const dispatch = useDispatch();
 
     console.log(data);
+    console.log(user);
     console.log(`This is the user: ${user}`,)
     console.log(isSuccess)
 
@@ -44,7 +45,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     }
 
     useEffect(() => {
-        if (!user) {
+        if (user === undefined) {
             if (data) {
                 console.log("got here");
                 socialLogin();
