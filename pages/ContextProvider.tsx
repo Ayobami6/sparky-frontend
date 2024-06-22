@@ -20,7 +20,7 @@ type Props = {
 };
 
 // Create a provider component
-export const ContextProvider: FC<Props> = ({ children }) => {
+const ContextProvider: FC<Props> = ({ children }) => {
     const [open, setOpen] = useState(false);
     const handleSetOpen = (isOpen: boolean) => {
         setOpen(isOpen);
@@ -33,6 +33,7 @@ export const ContextProvider: FC<Props> = ({ children }) => {
     );
 };
 
+export default ContextProvider
 // Custom hook to use the AppContext
 export const useAppContext = () => {
     return useContext(AppContext);
