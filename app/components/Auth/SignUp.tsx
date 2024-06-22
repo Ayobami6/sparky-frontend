@@ -66,19 +66,19 @@ const SignUp = ({ setRoute }: Props) => {
             </h1>
             <form onSubmit={handleSubmit}>
                 <div className='mb-4'>
-                    <label htmlFor="name" className={`${styles}`}>
+                    <label htmlFor="name" className={`${styles.label}`}>
                         Enter your name
                     </label>
                     <input type="text" name='' value={values.name} onChange={handleChange} id='name' placeholder='Enter your name' className={`${errors.name && touched.name && "border-red-500"} ${styles.input} `} />
                     {errors.name && touched.name && <p className={`${styles.error}`}>{errors.name}</p>}
                 </div>
-                <label htmlFor="email" className={`${styles}`}>
+                <label htmlFor="email" className={`${styles.label}`}>
                     Enter your Email
                 </label>
                 <input type="email" name='' value={values.email} onChange={handleChange} id='email' placeholder='Enter your email' className={`${errors.email && touched.email && "border-red-500"} ${styles.input} `} />
                 {errors.email && touched.email && <p className={`${styles.error}`}>{errors.email}</p>}
                 <div className='w-full mt-5 relative mb-1'>
-                    <label htmlFor="password" className={`${styles}`}>
+                    <label htmlFor="password" className={`${styles.label}`}>
                         Enter your Password
                     </label>
                     <input type={!show ? "password" : "text"} name='' value={values.password} onChange={handleChange} id='password' placeholder='Enter your password' className={`${errors.password && touched.password && "border-red-500"} ${styles.input} `} />
@@ -103,7 +103,7 @@ const SignUp = ({ setRoute }: Props) => {
                     <AiFillGithub size={30} className='mr-2 cursor-pointer' />
                     <FcGoogle size={30} className='ml-2 cursor-pointer' />
                 </div>
-                <div className='flex justify-center font-Poppins'>
+                <div className='flex justify-center font-Poppins dark:text-white'>
                     Already have an account?
                     <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => dispatch(setRoute('Login') as any)}>
                         Login

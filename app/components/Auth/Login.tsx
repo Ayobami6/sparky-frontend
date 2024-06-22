@@ -99,9 +99,9 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     <input type={!show ? "password" : "text"} name='' value={values.password} onChange={handleChange} id='password' placeholder='Enter your password' className={`${errors.password && touched.password && "border-red-500"} ${styles.input} `} />
                     {
                         !show ? (
-                            <AiOutlineEyeInvisible className="absolute bottom-3 right-2 z-1 cursor-pointer" size={20} onClick={() => setShow(true)} />
+                            <AiOutlineEyeInvisible className="absolute bottom-3 right-2 z-1 cursor-pointer dark:text-white" size={20} onClick={() => setShow(true)} />
                         ) : (
-                            <AiOutlineEye className="absolute bottom-3 right-2 z-1 cursor-pointer" size={20} onClick={() => setShow(false)} />
+                            <AiOutlineEye className="absolute bottom-3 right-2 z-1 cursor-pointer dark:text-white" size={20} onClick={() => setShow(false)} />
                         )
                     }
                     {errors.password && touched.password && <p className={`${styles.error}`}>{errors.password}</p>}
