@@ -25,7 +25,9 @@ type ActivationPayload = {
 
 export const authApi: any = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/v1/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://impressed-birdie-sparkytech-76064b97.koyeb.app/v1/",
+  }),
   endpoints: (builder) => ({
     register: builder.mutation<RegistrationResponse, RegistrationPayload>({
       query: (payload) => ({
