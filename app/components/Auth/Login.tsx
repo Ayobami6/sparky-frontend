@@ -4,9 +4,13 @@ import * as Yup from 'yup'
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../constants/styles'
-import { useLoginMutation } from '@/redux/features/auth/authApi';
+import { useLoginMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
 import { toast } from 'react-hot-toast';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { signIn, useSession } from 'next-auth/react'
+import Loader from '../Loader'
+import SubmitButton from '../SubmitButton'
+
 type Props = {
     setRoute: (route: string) => void
     setOpen: (open: boolean) => void
@@ -33,8 +37,14 @@ const schema = Yup.object().shape({
 
 const Login = ({ setRoute, setOpen }: Props) => {
     const [show, setShow] = useState(false);
-    const [login, { isSuccess, data, error }] = useLoginMutation();
+    const [login, { isSuccess, error, isLoading }] = useLoginMutation();
     const { accessToken, refreshToken } = useSelector((state: stateProps) => state?.auth)
+    const dispatch = useDispatch();
+
+    // const handleGoogleLogin = () => {
+    //     signIn('google');
+    // }
+
     // set access and refreshtoken to local storage
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
@@ -57,7 +67,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
     useEffect(() => {
         if (isSuccess) {
             toast.success("Login Successfully")
-            setOpen(false)
+            dispatch(setOpen(false) as any);
         }
         if (error) {
             if ("data" in error) {
@@ -69,7 +79,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
             }
         }
 
-    }, [isSuccess, error, setOpen])
+    }, [isSuccess, error, setOpen, dispatch])
     const { errors, touched, values, handleChange, handleSubmit } = formik;
     return (
         <div className='w-full'>
@@ -77,40 +87,38 @@ const Login = ({ setRoute, setOpen }: Props) => {
                 Login
             </h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email" className={`${styles}`}>
+                <label htmlFor="email" className={`${styles.label}`}>
                     Enter your Email
                 </label>
                 <input type="email" name='' value={values.email} onChange={handleChange} id='email' placeholder='Enter your email' className={`${errors.email && touched.email && "border-red-500"} ${styles.input} `} />
                 {errors.email && touched.email && <p className={`${styles.error}`}>{errors.email}</p>}
                 <div className='w-full mt-5 relative mb-1'>
-                    <label htmlFor="password" className={`${styles}`}>
+                    <label htmlFor="password" className={`${styles.label}`}>
                         Enter your Password
                     </label>
                     <input type={!show ? "password" : "text"} name='' value={values.password} onChange={handleChange} id='password' placeholder='Enter your password' className={`${errors.password && touched.password && "border-red-500"} ${styles.input} `} />
                     {
                         !show ? (
-                            <AiOutlineEyeInvisible className="absolute bottom-3 right-2 z-1 cursor-pointer" size={20} onClick={() => setShow(true)} />
+                            <AiOutlineEyeInvisible className="absolute bottom-3 right-2 z-1 cursor-pointer dark:text-white" size={20} onClick={() => setShow(true)} />
                         ) : (
-                            <AiOutlineEye className="absolute bottom-3 right-2 z-1 cursor-pointer" size={20} onClick={() => setShow(false)} />
+                            <AiOutlineEye className="absolute bottom-3 right-2 z-1 cursor-pointer dark:text-white" size={20} onClick={() => setShow(false)} />
                         )
                     }
                     {errors.password && touched.password && <p className={`${styles.error}`}>{errors.password}</p>}
                 </div>
-                <div className='w-full mt-5'>
-                    <input type="submit" value="Login" className={`${styles.button}`} />
-                </div>
+                <SubmitButton isLoading={isLoading} />
                 <br />
 
                 <h5 className='text-center pt-4 font-Poppins text-[14px] text-black dark:text-white'>
                     or Join with
                 </h5>
                 <div className='flex justify-center my-3'>
-                    <AiFillGithub size={30} className='mr-2 cursor-pointer' />
-                    <FcGoogle size={30} className='ml-2 cursor-pointer' />
+                    <AiFillGithub size={30} className='mr-2 cursor-pointer text-black dark:text-white' onClick={() => signIn("github")} />
+                    <FcGoogle size={30} className='ml-2 cursor-pointer' onClick={() => signIn("google")} />
                 </div>
-                <div className='flex justify-center font-Poppins'>
-                    Don`&apos;`t have an account?
-                    <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => setRoute('Signup')}>
+                <div className='flex justify-center text-black dark:text-white font-Poppins'>
+                    Don&apos;t have an account?
+                    <p className='text-center ml-2 text-[14px] text-blue-400 cursor-pointer' onClick={() => dispatch(setRoute('Signup') as any)}>
                         Sign up
                     </p>
                 </div>

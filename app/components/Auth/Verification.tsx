@@ -5,6 +5,7 @@ import { styles } from '../../constants/styles'
 import { useSelector } from 'react-redux'
 import { useActivationMutation } from '@/redux/features/auth/authApi';
 import { stateProps } from './Login'
+import { useDispatch } from 'react-redux'
 
 type Props = {
     setRoute: (route: string) => void
@@ -23,6 +24,7 @@ const Verification = ({ setRoute }: Props) => {
     const [invalidError, setInvalidError] = useState(false);
     const { activationToken } = useSelector((state: stateProps) => state?.auth);
     const [activation, { isSuccess, error }] = useActivationMutation();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (isSuccess) {
@@ -113,7 +115,7 @@ const Verification = ({ setRoute }: Props) => {
             </div>
             <br />
             <h5 className='text-center pt-4 font-Poppins text-[14px] text-black dark:text-white'>
-                Go back to sign in <span className='text-[#2190ff] pl-1 cursor-pointer' onClick={() => setRoute('Login')}>Sign in</span>
+                Go back to sign in <span className='text-[#2190ff] pl-1 cursor-pointer' onClick={() => dispatch(setRoute('Login') as any)}>Sign in</span>
             </h5>
         </div>
     )
