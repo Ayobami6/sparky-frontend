@@ -42,6 +42,7 @@ const ProfileInfo = ({ user, avatar, setAvatar }: Props) => {
         if (error) {
             console.log(error)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error, isSuccess])
 
     return (
