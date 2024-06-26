@@ -14,7 +14,7 @@ const Profile = ({ }: Props) => {
     const [open, setOpen] = useState(false)
     const [scroll, setScroll] = useState(false)
     const user = JSON.parse(localStorage.getItem('user') as any)
-    const [avatar, setAvatar] = useState('')
+    const [avatar, setAvatar] = useState(user.avatar.url)
     const [active, setActive] = useState(1)
 
 
@@ -46,7 +46,7 @@ const Profile = ({ }: Props) => {
                 <div className={`col-span-2 sticky mt-[80px] ${scroll ? "top-[120px]" : "top-[30px]"}`}>
                     {
                         active === 1 &&
-                        < ProfileInfo user={user} avatar={avatar} />
+                        < ProfileInfo user={user} avatar={avatar} setAvatar={setAvatar} />
                     }
                 </div>
 

@@ -6,14 +6,16 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import SubmitButton from '../SubmitButton';
 import { useUpdateAvatarMutation } from '@/redux/features/user/userApi';
 import { useLoadUserQuery } from '@/redux/features/auth/authApi';
+import { toast } from 'react-hot-toast';
 
 type Props = {
     user: any;
     avatar: string;
+    setAvatar: (avatar: string) => void;
 }
 
-const ProfileInfo = ({ user, avatar }: Props) => {
-    const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+const ProfileInfo = ({ user, avatar, setAvatar }: Props) => {
+    const [updateAvatar, { isSuccess, error, data }] = useUpdateAvatarMutation();
     const [loadUser, setLoadUser] = useState(false)
     const { } = useLoadUserQuery(undefined, { skip: loadUser ? false : true })
 
@@ -34,7 +36,8 @@ const ProfileInfo = ({ user, avatar }: Props) => {
     useEffect(() => {
         if (isSuccess) {
             setLoadUser(true)
-            console.log("User loaded")
+            toast.success(data.message)
+            setAvatar(data.user.avatar.url)
         }
         if (error) {
             console.log(error)
@@ -46,7 +49,7 @@ const ProfileInfo = ({ user, avatar }: Props) => {
             <div className='w-full flex items-center justify-center'>
                 <div className='relative'>
                     <Image
-                        src={user.avatar || avatar ? user.avatar.url || avatar : defaultAvatar}
+                        src={avatar ? avatar : defaultAvatar}
                         alt='avatar'
                         width={120}
                         height={120}

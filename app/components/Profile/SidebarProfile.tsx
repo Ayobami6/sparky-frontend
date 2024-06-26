@@ -18,7 +18,7 @@ const SidebarProfile = ({ user, active, avatar, setActive, setAvatar, logOutHand
     return (
         <div className='w-full'>
             <div className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 1 ? "dark:bg-slate-800 bg-white shadow-md" : "bg-transparent"}`} onClick={() => setActive(1)}>
-                <Image src={user.avatar || avatar ? user.avatar.url || avatar : defaultAvatar}
+                <Image src={avatar ? avatar : defaultAvatar}
                     alt='avatar'
                     width={20}
                     height={20}
