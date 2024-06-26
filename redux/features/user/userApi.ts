@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { apiBaseUrl } from "@/app/constants/constants";
 
 export const userApi: any = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://impressed-birdie-sparkytech-76064b97.koyeb.app/v1/",
+    baseUrl: apiBaseUrl,
   }),
   endpoints: (builder) => ({
     updateAvatar: builder.mutation({
