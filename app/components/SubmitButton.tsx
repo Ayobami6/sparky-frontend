@@ -3,9 +3,10 @@ import { styles } from '../constants/styles'
 
 type Props = {
     isLoading: boolean
+    value: string
 }
 
-const SubmitButton = ({ isLoading }: Props) => {
+const SubmitButton = ({ isLoading, value = "Login" }: Props) => {
     return (
         <div className='w-full mt-5'>
             {
@@ -15,7 +16,7 @@ const SubmitButton = ({ isLoading }: Props) => {
                             <div className="top-0 left-0 h-20 w-20 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
                         </div>
                     </div>
-                    : <input type="submit" value="Login" className={`${styles.button}`} />
+                    : <input type="submit" value={value} className={`${styles.button}`} />
             }
         </div>
     )
