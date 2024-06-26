@@ -25,7 +25,7 @@ type Props = {
 const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOPenSidebar] = useState(false);
-    const { user } = useSelector((state: stateProps) => state.auth)
+    const user = JSON.parse(localStorage.getItem('user') as any)
     // const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
     const { data } = useSession();
     const [socialAuth, { isSuccess, error: socialAuthError }] = useSocialAuthMutation();
@@ -114,11 +114,28 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
                                         onClick={() => setOPenSidebar(true)}
                                     />
                                 </div>
-                                <HiOutlineUserCircle
-                                    size={25}
-                                    className='hidden 800px:block cursor-pointer dark:text-white text-black'
-                                    onClick={() => dispatch(setOpen(!open) as any)}
-                                />
+                                {/* add if user signed what to show */}
+                                {
+                                    user ? (
+                                        <div className='hidden 800px:block'>
+                                            <Link href={"/profile"} passHref>
+                                                <div className="relative inline-flex cursor-pointer items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                                    <span className="font-medium text-gray-600 dark:text-gray-300">{user.name.slice(0, 2)}</span>
+                                                </div>
+                                            </Link>
+
+                                        </div>
+
+
+                                    ) : (
+                                        <HiOutlineUserCircle
+                                            size={25}
+                                            className='hidden 800px:block cursor-pointer dark:text-white text-black'
+                                            onClick={() => dispatch(setOpen(!open) as any)}
+                                        />
+                                    )
+                                }
+
 
                             </div>
                         </div>
