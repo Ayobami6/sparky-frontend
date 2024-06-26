@@ -7,6 +7,7 @@ import SidebarProfile from '../components/Profile/SidebarProfile'
 import { redirect } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import ProfileInfo from '../components/Profile/ProfileInfo'
+import ChangePassword from '../components/Profile/ChangePassword'
 
 type Props = {}
 
@@ -47,6 +48,10 @@ const Profile = ({ }: Props) => {
                     {
                         active === 1 &&
                         < ProfileInfo user={user} avatar={avatar} setAvatar={setAvatar} />
+                    }
+                    {
+                        active === 2 &&
+                        < ChangePassword />
                     }
                 </div>
 

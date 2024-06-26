@@ -26,7 +26,21 @@ export const userApi: any = createApi({
         },
       }),
     }),
+    changePassword: builder.mutation({
+      query: (payload) => ({
+        url: "user/change-password",
+        method: "PUT",
+        body: payload,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useUpdateAvatarMutation, useUpdateUserMutation } = userApi;
+export const {
+  useUpdateAvatarMutation,
+  useUpdateUserMutation,
+  useChangePasswordMutation,
+} = userApi;

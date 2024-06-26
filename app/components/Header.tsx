@@ -62,7 +62,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
             signOut({ redirect: false })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, setOpen, user]);
+    }, [data, user]);
     console.log(isSuccess)
 
     if (typeof window !== 'undefined') {

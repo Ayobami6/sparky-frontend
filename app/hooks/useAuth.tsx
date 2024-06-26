@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { stateProps } from "../components/Auth/Login";
 
 export default function useAuth() {
-    const user = useSelector((state: stateProps) => state.auth.user);
+    const user = localStorage.getItem('user');
     let isAuthenticated = false;
     if (user) {
         isAuthenticated = true
