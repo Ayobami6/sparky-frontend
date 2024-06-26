@@ -74,7 +74,7 @@ const Hero = ({ setOpen }: Props) => {
                 </div>
                 <div className="flex-1 max-w-xl mx-auto mt-14 xl:mt-0">
                     <div className="relative">
-                        <Image src={require("../../public/images/photo-1513258496099-48168024aec0.avif")} className="rounded-lg" alt="" width={600} height={400} />
+                        <Image src={require("../../public/images/_313897c9-c7b8-48b8-a446-1d59c205848e.jpeg")} className="rounded-lg" alt="" width={600} height={400} />
                         <button className="absolute w-16 h-16 rounded-full inset-0 m-auto duration-150 bg-blue-500 hover:bg-blue-600 ring-offset-2 focus:ring text-white"
                             onClick={() => setVideoPopUp(true)}
                         >
@@ -98,9 +98,17 @@ const Hero = ({ setOpen }: Props) => {
                                     <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                                 </svg>
                             </button>
-                            <video className="rounded-lg w-full max-w-2xl" controls autoPlay={true}>
-                                <source src="https://raw.githubusercontent.com/sidiDev/remote-assets/main/FloatUI.mp4" type="video/mp4" />
-                            </video>
+                            <div className="rounded-lg w-full max-w-2xl">
+                                <iframe
+                                    width="100%"
+                                    height="315"
+                                    src="https://www.youtube.com/embed/8LGJGwMiawk"
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
                         </div>
                     </div>
                 ) : ""
