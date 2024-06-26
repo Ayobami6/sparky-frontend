@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SubmitButton from '../SubmitButton'
 import * as Yup from 'yup'
 import { styles } from '@/app/constants/styles'
 import { useFormik } from 'formik'
 import { useChangePasswordMutation } from '@/redux/features/user/userApi'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { toast } from 'react-hot-toast';
 
 type Props = {}
 
@@ -40,6 +41,23 @@ const ChangePassword = (props: Props) => {
 
         }
     })
+    useEffect(() => {
+        if (isSuccess) {
+            formik.resetForm()
+            toast.success("Password Changed Successfully")
+        }
+        if (error) {
+            if ("data" in error) {
+                const message = error?.data?.message || "Failed to change your password"
+                console.log(error);
+                toast.error(message)
+            } else {
+                console.log("An error occurred!")
+                toast.error("An error occurred")
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSuccess, error])
     const { errors, touched, values, handleChange, handleSubmit } = formik;
     return (
         <>
