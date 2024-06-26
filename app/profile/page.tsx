@@ -14,7 +14,7 @@ const Profile = ({ }: Props) => {
     const [open, setOpen] = useState(false)
     const [scroll, setScroll] = useState(false)
     const user = JSON.parse(localStorage.getItem('user') as any)
-    const [avatar, setAvatar] = useState(user.avatar.url)
+    const [avatar, setAvatar] = useState(user && user.avatar.url)
     const [active, setActive] = useState(1)
 
 

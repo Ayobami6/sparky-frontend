@@ -28,7 +28,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const user = JSON.parse(localStorage.getItem('user') as any)
     // const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
     const { data } = useSession();
-    const [socialAuth, { isSuccess, error: socialAuthError }] = useSocialAuthMutation();
+    const [socialAuth, { isSuccess, error: socialAuthError, data: authData }] = useSocialAuthMutation();
     const dispatch = useDispatch();
 
     console.log(data);
@@ -43,10 +43,11 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
             email: data?.user?.email
         }
         await socialAuth(payload);
+        console.log(authData)
     }
 
     useEffect(() => {
-        if (user === undefined) {
+        if (user === undefined || user === null) {
             if (data) {
                 console.log("got here");
                 socialLogin();

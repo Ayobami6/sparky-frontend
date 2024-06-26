@@ -16,7 +16,17 @@ export const userApi: any = createApi({
         },
       }),
     }),
+    updateUser: builder.mutation({
+      query: (payload) => ({
+        url: "user/user-update",
+        method: "PUT",
+        body: payload,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useUpdateAvatarMutation } = userApi;
+export const { useUpdateAvatarMutation, useUpdateUserMutation } = userApi;
