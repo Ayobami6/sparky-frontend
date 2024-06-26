@@ -52,15 +52,16 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
                 socialLogin();
             }
         }
-        // if (user) {
-        //     console.log("Testing Toast")
-        //     toast.success("Login Successfully")
-        //     setOpen(false)
-        // }
+        if (user) {
+            console.log("Testing Toast")
+            toast.success("Login Successfully")
+            setOpen(false)
+        }
         if (data === null) {
             signOut({ redirect: false })
         }
-    }, [data, setOpen, socialLogin, user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, setOpen, user]);
     console.log(isSuccess)
 
     if (typeof window !== 'undefined') {

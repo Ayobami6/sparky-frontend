@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import defaultAvatar from '../../../public/images/anonymousDeafult-Profile-Pitcher.png'
 import Image from 'next/image';
 import { userAgent } from 'next/server';
 import { AiOutlineCamera } from 'react-icons/ai';
 import SubmitButton from '../SubmitButton';
+import { useUpdateAvatarMutation } from '@/redux/features/user/userApi';
+import { useLoadUserQuery } from '@/redux/features/auth/authApi';
 
 type Props = {
     user: any;
@@ -11,10 +13,33 @@ type Props = {
 }
 
 const ProfileInfo = ({ user, avatar }: Props) => {
+    const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+    const [loadUser, setLoadUser] = useState(false)
+    const { } = useLoadUserQuery(undefined, { skip: loadUser ? false : true })
 
-    const imageHandler = () => {
-        console.log("Image")
+    const imageHandler = async (e: any) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(e.target.files[0]);
+        fileReader.onload = () => {
+            console.log(fileReader.result);
+            if (fileReader.readyState === 2) {
+                const avatar = fileReader.result;
+                console.log({ avatar });
+                updateAvatar({ avatar });
+
+            }
+        }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            setLoadUser(true)
+            console.log("User loaded")
+        }
+        if (error) {
+            console.log(error)
+        }
+    }, [error, isSuccess])
 
     return (
         <>
@@ -23,6 +48,8 @@ const ProfileInfo = ({ user, avatar }: Props) => {
                     <Image
                         src={user.avatar || avatar ? user.avatar.url || avatar : defaultAvatar}
                         alt='avatar'
+                        width={120}
+                        height={120}
                         className='w-[120px] h-[120px] cursor-pointer border-[3px] rounded-full border-gray-500'
                     />
                     <input type="file"

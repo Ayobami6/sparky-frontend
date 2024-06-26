@@ -4,7 +4,7 @@ import { stateProps } from "../components/Auth/Login";
 
 export default function useAuth() {
     const user = useSelector((state: stateProps) => state.auth.user);
-    let isAuthenticated = false;
+    let isAuthenticated = true;
     if (user) {
         isAuthenticated = true
     }

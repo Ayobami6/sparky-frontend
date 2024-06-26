@@ -122,7 +122,7 @@ export const authApi: any = createApi({
         url: "user/user-info",
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Replace 'yourAccessToken' with the actual access token
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
