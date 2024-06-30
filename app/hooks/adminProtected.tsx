@@ -6,12 +6,17 @@ type Props = {
 }
 
 const AdminProtected = ({ children }: Props) => {
-    const user = localStorage.getItem('user')
-    const isAdmin = user?.role === 'admin'
-    if (!isAdmin) {
-        redirect('/')
+    const user = JSON.parse(localStorage.getItem('user') as any)
+    if (user) {
+        const isAdmin = user?.role === 'admin'
+        if (!isAdmin) {
+            redirect('/')
+        }
+        return children
+
     }
-    return children
+    redirect("/")
+
 
 
 }
