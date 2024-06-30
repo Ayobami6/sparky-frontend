@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { Badge } from "flowbite-react";
@@ -19,8 +20,15 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import { HiUserGroup } from 'react-icons/hi';
+import { PiFlagBannerDuotone } from 'react-icons/pi';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
+import { FaQuestion } from 'react-icons/fa';
+import CategoryIcon from '@mui/icons-material/Category';
 import { Sidebar, Menu, MenuItem, SubMenu, menuClasses, sidebarClasses } from "react-pro-sidebar";
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { styles } from "../../constants/styles";
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 type Props = {
     user: any;
@@ -71,15 +79,27 @@ const AdminSidebar = ({ user }: Props) => {
                     Dashboard
                 </MenuItem>
                 <MenuItem icon={<ReceiptRoundedIcon />} > Invoices </MenuItem>
-                <SubMenu label="Charts" icon={<BarChartRoundedIcon />} >
-                    <MenuItem className={styles.adminSubItem} icon={<TimelineRoundedIcon />}> Timeline Chart </MenuItem>
-                    <MenuItem className={styles.adminSubItem} icon={<BubbleChartRoundedIcon />}>Bubble Chart</MenuItem>
-                </SubMenu>
-                <SubMenu label="Wallets" icon={<WalletRoundedIcon />}>
-                    <MenuItem className={styles.adminSubItem} icon={<AccountBalanceRoundedIcon />}>
-                        Current Wallet
+                <MenuItem icon={<HiUserGroup />} > Users </MenuItem>
+                <SubMenu label="Courses" icon={<LibraryBooksIcon />}>
+                    <MenuItem className={styles.adminSubItem} icon={<PiFlagBannerDuotone />}>
+                        <Link href={"admin/create-course"} passHref>
+                            Create Course
+                        </Link>
                     </MenuItem>
-                    <MenuItem className={styles.adminSubItem} icon={<SavingsRoundedIcon />}>Savings Wallet</MenuItem>
+                    <MenuItem className={styles.adminSubItem} icon={<LiveTvIcon />}>Live Courses</MenuItem>
+
+                </SubMenu>
+                <SubMenu label="Analytics" icon={<BarChartRoundedIcon />} >
+                    <MenuItem className={styles.adminSubItem} icon={<TimelineRoundedIcon />}> Courses Analytics </MenuItem>
+                    <MenuItem className={styles.adminSubItem} icon={<BubbleChartRoundedIcon />}>Order Analytics</MenuItem>
+                    <MenuItem className={styles.adminSubItem} icon={<BubbleChartRoundedIcon />}>Users Analytics</MenuItem>
+                </SubMenu>
+                <SubMenu label="Customization" icon={<DashboardCustomizeIcon />}>
+                    <MenuItem className={styles.adminSubItem} icon={<PiFlagBannerDuotone />}>
+                        Banner
+                    </MenuItem>
+                    <MenuItem className={styles.adminSubItem} icon={<FaQuestion />}>FAQ</MenuItem>
+                    <MenuItem className={styles.adminSubItem} icon={<CategoryIcon />}>Category</MenuItem>
                 </SubMenu>
                 <MenuItem
                     icon={<MonetizationOnRoundedIcon />}
