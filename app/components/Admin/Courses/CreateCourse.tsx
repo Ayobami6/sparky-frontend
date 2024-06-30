@@ -40,7 +40,12 @@ const CreateCourse = (props: Props) => {
             <div className='w-[80%]'>
                 {
                     active === 0 && (
-                        <CourseInfo />
+                        <CourseInfo
+                            courseInfo={courseInfo}
+                            setCourseInfo={setCourseInfo}
+                            active={active}
+                            setActive={setActive}
+                        />
                     )
                 }
 
