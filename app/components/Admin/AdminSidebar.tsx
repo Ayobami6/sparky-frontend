@@ -29,6 +29,7 @@ import { Sidebar, Menu, MenuItem, SubMenu, menuClasses, sidebarClasses } from "r
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { styles } from "../../constants/styles";
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 
 type Props = {
     user: any;
@@ -81,7 +82,7 @@ const AdminSidebar = ({ user }: Props) => {
                 <MenuItem icon={<ReceiptRoundedIcon />} > Invoices </MenuItem>
                 <MenuItem icon={<HiUserGroup />} > Users </MenuItem>
                 <SubMenu label="Courses" icon={<LibraryBooksIcon />}>
-                    <MenuItem className={styles.adminSubItem} icon={<PiFlagBannerDuotone />}>
+                    <MenuItem className={styles.adminSubItem} icon={<PlayLessonIcon />}>
                         <Link href={"admin/create-course"} passHref>
                             Create Course
                         </Link>
