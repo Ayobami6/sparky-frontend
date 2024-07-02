@@ -89,6 +89,7 @@ const CourseContent = ({ active, setActive, courseContent, setCourseContent, han
     const handleNext = () => {
         if (courseContent[courseContent.length - 1].title !== "" || courseContent[courseContent.length - 1].description !== "" || courseContent[courseContent.length - 1].videoUrl !== "") {
             setActive(active + 1);
+            handleSubmit()
         } else {
             toast.error('Please fill all previous content fields')
         }

@@ -8,7 +8,7 @@ import CourseContent from './CourseContent'
 type Props = {}
 
 const CreateCourse = (props: Props) => {
-    const [active, setActive] = useState(2)
+    const [active, setActive] = useState(0)
     const [courseInfo, setCourseInfo] = useState({
         name: "",
         description: "",
@@ -40,8 +40,35 @@ const CreateCourse = (props: Props) => {
     )
     const [courseData, setCourseData] = useState({})
     const handleSubmit = async () => {
-
-
+        // format benefits array
+        const formattedBenefits = benefits.map((benefit) => ({ title: benefit.title }))
+        // format prerequisites array
+        const formattedPrerequisites = prerequisites.map((prerequisite) => ({ title: prerequisite.title }))
+        // format course content array
+        const formattedCourseContent = courseContent.map((section) => ({
+            videoUrl: section.videoUr,
+            title: section.title,
+            videoSection: section.videoSection,
+            description: section.description,
+            videoLength: section.videoLength,
+            links: section.links.map((link) => ({ title: link.title, url: link.url }))
+        }))
+        // format course data
+        const formattedCourseData = {
+            name: courseInfo.name,
+            description: courseInfo.description,
+            price: courseInfo.price,
+            estimatedPrice: courseInfo.estimatedPrice,
+            tags: courseInfo.tags.split(','),
+            level: courseInfo.level,
+            demoUrl: courseInfo.demoUrl,
+            thumbnail: courseInfo.thumbnail,
+            benefits: formattedBenefits,
+            prerequisites: formattedPrerequisites,
+            courseContent: formattedCourseContent
+        }
+        setCourseData(formattedCourseData)
+        console.log(formattedCourseData)
     }
     return (
         <div className='w-full flex min-h-screen'>
