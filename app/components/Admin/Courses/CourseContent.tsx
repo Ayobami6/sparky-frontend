@@ -1,8 +1,9 @@
 import { styles } from '@/app/constants/styles';
 import React, { useState } from 'react'
-import { AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
 import { BsLink45Deg, BsPencil } from 'react-icons/bs';
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
+import toast from 'react-hot-toast';
 
 type Props = {
     active: number;
@@ -36,6 +37,62 @@ const CourseContent = ({ active, setActive, courseContent, setCourseContent, han
         updatedContent[index].links.push({ title: "", url: "" })
         setCourseContent(updatedContent)
     }
+    const handleAddContent = (item: any) => {
+        if (item?.title === "" || item.description === "" || item.videoUrl === "") {
+            toast.error("Please fill all previous content fields")
+
+        } else {
+            let newVidSection = ""
+            if (courseContent.length > 0) {
+                const lastVideoSection = courseContent[courseContent.length - 1].videoSection;
+                if (lastVideoSection) {
+                    newVidSection = lastVideoSection
+                }
+            }
+            const updatedContent = [...courseContent, {
+                videoUr: "",
+                title: "",
+                videoSection: "Untitled Section",
+                description: "",
+                videoLength: "",
+                links: [
+                    {
+                        title: "",
+                        url: ""
+                    }
+                ]
+            }]
+            setCourseContent(updatedContent)
+        }
+
+    }
+
+    const addNewSection = () => {
+        const updatedContent = [...courseContent]
+        const contentLength = courseContent.length
+        updatedContent.push({
+            videoUr: "",
+            title: "",
+            videoSection: `Untitled Section ${contentLength - 1}`,
+            description: "",
+            videoLength: "",
+            links: [
+                {
+                    title: "",
+                    url: ""
+                }
+            ]
+        })
+        setCourseContent(updatedContent)
+        setIsCollapsed([...isCollapsed, true])
+    }
+    const handleNext = () => {
+        if (courseContent[courseContent.length - 1].title !== "" || courseContent[courseContent.length - 1].description !== "" || courseContent[courseContent.length - 1].videoUrl !== "") {
+            setActive(active + 1);
+        } else {
+            toast.error('Please fill all previous content fields')
+        }
+    };
     return (
         <div className='w-[80%] m-auto mt-24 p-3'
         >
@@ -208,13 +265,47 @@ const CourseContent = ({ active, setActive, courseContent, setCourseContent, han
                                         <></>
                                     )
                                 }
+                                {
+                                    index === courseContent.length - 1 && (
+                                        <div>
+                                            <p className='flex items-center my-2 text-[18px] dark:text-white text-black cursor-pointer'
+                                                onClick={(e) => {
+                                                    handleAddContent(section);
+                                                }}
+                                            >
+                                                <AiOutlinePlusCircle className='mr-2' /> Add New Content
+
+                                            </p>
+                                        </div>
+                                    )
+                                }
+
 
                             </div>
+
                         </>
+
                     )
 
+
                 })}
+                <br />
+                <br />
+                <div className='flex items-center text-[20px] dark:text-white text-black cursor-pointer'
+                    onClick={() => addNewSection()}
+                >
+                    <AiOutlinePlusCircle className='mr-2' /> Add New Section
+                </div>
+
             </form>
+            <div className='flex w-full items-center justify-between'>
+                <button className={`${styles.button} w-[150px] mx-auto mr-2 mt-12`} onClick={() => setActive(active - 1)}>
+                    Previous
+                </button>
+                <button className={`${styles.button} w-[150px] mx-auto mt-12`} onClick={() => handleNext()}>
+                    Next
+                </button>
+            </div>
         </div>
     )
 }

@@ -13,7 +13,7 @@ const AdminLayout = ({ user, Component }: Props) => {
     return (
         <AdminProtected>
             <AppLayout />
-            <div className='flex  h-[200vh]'>
+            <div className='flex h-full'>
                 <div className='1500px:w-[15%] w-1/5'>
                     <AdminSidebar user={user} />
 
