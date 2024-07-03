@@ -6,6 +6,7 @@ import {
   tokenRefresh,
   loadUser,
 } from "./authSlice";
+import { apiBaseUrl } from "@/app/constants/constants";
 
 type RegistrationResponse = {
   message: string;
@@ -26,7 +27,7 @@ type ActivationPayload = {
 export const authApi: any = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://impressed-birdie-sparkytech-76064b97.koyeb.app/v1/",
+    baseUrl: apiBaseUrl,
   }),
   endpoints: (builder) => ({
     register: builder.mutation<RegistrationResponse, RegistrationPayload>({
@@ -122,7 +123,7 @@ export const authApi: any = createApi({
         url: "user/user-info",
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Replace 'yourAccessToken' with the actual access token
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {

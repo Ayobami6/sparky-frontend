@@ -106,7 +106,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     }
                     {errors.password && touched.password && <p className={`${styles.error}`}>{errors.password}</p>}
                 </div>
-                <SubmitButton isLoading={isLoading} />
+                <SubmitButton isLoading={isLoading} value='Login' />
                 <br />
 
                 <h5 className='text-center pt-4 font-Poppins text-[14px] text-black dark:text-white'>

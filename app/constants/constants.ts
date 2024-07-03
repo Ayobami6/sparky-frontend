@@ -1,1 +1,1 @@
-export const baseUrl = "http://localhost:4000/v1/"
+export const apiBaseUrl = "https://impressed-birdie-sparkytech-76064b97.koyeb.app/v1/";
