@@ -9,10 +9,11 @@ import CustomModal from '../utils/CustomModal';
 import Login, { stateProps } from './Auth/Login';
 import SignUp from './Auth/SignUp'
 import Verification from './Auth/Verification';
-import { useRefreshTokenMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
+import { useRefreshTokenMutation, useSocialAuthMutation, useLoadUserQuery } from '@/redux/features/auth/authApi';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOut, useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
+import Loader from './Loader';
 
 type Props = {
     open: boolean
@@ -28,8 +29,10 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
     const user = JSON.parse(localStorage.getItem('user') as any)
     // const [refreshToken, { isSuccess, error, data }] = useRefreshTokenMutation();
     const { data } = useSession();
-    const [socialAuth, { isSuccess, error: socialAuthError, data: authData }] = useSocialAuthMutation();
+    const [socialAuth, { isSuccess, error: socialAuthError, data: authData, isLoading }] = useSocialAuthMutation();
     const dispatch = useDispatch();
+    const [loadUser, setLoadUser] = useState(false);
+    const { } = useLoadUserQuery(undefined, { skip: loadUser ? false : true })
 
     console.log(data);
     console.log(user);
@@ -43,7 +46,8 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
             email: data?.user?.email
         }
         await socialAuth(payload);
-        console.log(authData)
+        // window.location.reload();
+        toast.success("Login successful")
     }
 
     useEffect(() => {
@@ -52,11 +56,6 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
                 console.log("got here");
                 socialLogin();
             }
-        }
-        if (user) {
-            console.log("Testing Toast")
-            toast.success("Login Successfully")
-            setOpen(false)
         }
         if (data === null) {
             signOut({ redirect: false })
