@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../constants/styles'
-import { useLoginMutation, useSocialAuthMutation } from '@/redux/features/auth/authApi';
+import { useLoginMutation, useSocialAuthMutation, useLoadUserQuery } from '@/redux/features/auth/authApi';
 import { toast } from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux'
 import { signIn, useSession } from 'next-auth/react'
@@ -64,6 +64,13 @@ const Login = ({ setRoute, setOpen }: Props) => {
 
         }
     })
+    const googleSignIn = async () => {
+        await signIn('google');
+
+    }
+    const githubSignIn = async () => {
+        await signIn('github');
+    }
     useEffect(() => {
         if (isSuccess) {
             toast.success("Login Successfully")
@@ -113,8 +120,8 @@ const Login = ({ setRoute, setOpen }: Props) => {
                     or Join with
                 </h5>
                 <div className='flex justify-center my-3'>
-                    <AiFillGithub size={30} className='mr-2 cursor-pointer text-black dark:text-white' onClick={() => signIn("github")} />
-                    <FcGoogle size={30} className='ml-2 cursor-pointer' onClick={() => signIn("google")} />
+                    <AiFillGithub size={30} className='mr-2 cursor-pointer text-black dark:text-white' onClick={() => githubSignIn()} />
+                    <FcGoogle size={30} className='ml-2 cursor-pointer' onClick={() => googleSignIn()} />
                 </div>
                 <div className='flex justify-center text-black dark:text-white font-Poppins'>
                     Don&apos;t have an account?

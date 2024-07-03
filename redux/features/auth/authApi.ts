@@ -71,6 +71,7 @@ export const authApi: any = createApi({
             userLogin({
               accessToken: result?.data.accessToken,
               refreshToken: result?.data.refreshToken,
+              user: JSON.stringify(result.data.user),
             })
           );
         } catch (error: any) {
@@ -91,6 +92,7 @@ export const authApi: any = createApi({
             userLogin({
               accessToken: result?.data.accessToken,
               refreshToken: result?.data.refreshToken,
+              user: JSON.stringify(result?.data.user),
             })
           );
         } catch (error: any) {
