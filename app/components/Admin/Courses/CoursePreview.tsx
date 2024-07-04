@@ -81,7 +81,7 @@ const CoursePreview = ({ active, setActive, courseData, handleCourseCreate }: Pr
 
                 </div>
                 {
-                    courseData.benefits.map((value: any, i: number) => {
+                    courseData?.benefits.map((value: any, i: number) => {
                         <div className='w-full flex 800px:items-center py-2' key={i}>
                             <div className='w-[15px] mr-1'>
                                 <IoCheckmarkDoneOutline size={20} />
@@ -98,7 +98,7 @@ const CoursePreview = ({ active, setActive, courseData, handleCourseCreate }: Pr
                     Prerequisites
                 </h1>
                 {
-                    courseData.prerequisites.map((value: any, i: number) => {
+                    courseData?.prerequisites.map((value: any, i: number) => {
                         <div className='w-full flex 800px:items-center py-2' key={i}>
                             <div className='w-[15px] mr-1'>
                                 <IoCheckmarkDoneOutline size={20} />

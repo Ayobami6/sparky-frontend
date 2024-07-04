@@ -5,12 +5,14 @@ import { authApi } from "./features/auth/authApi";
 import authSlice from "./features/auth/authSlice";
 import modalSlice from "./features/modal/modalSlice";
 import { userApi } from "./features/user/userApi";
+import { courseApi } from "./features/course/courseApi";
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [courseApi.reducerPath]: courseApi.reducer,
     auth: authSlice,
     modal: modalSlice,
   },
@@ -18,7 +20,8 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(api.middleware)
       .concat(authApi.middleware)
-      .concat(userApi.middleware),
+      .concat(userApi.middleware)
+      .concat(courseApi.middleware),
   devTools: false,
   preloadedState: {},
 });

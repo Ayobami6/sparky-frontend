@@ -5,6 +5,8 @@ import CourseOptions from './CourseOptions'
 import CourseData from './CourseData'
 import CourseContent from './CourseContent'
 import CoursePreview from './CoursePreview'
+import { useCreateCourseMutation } from '@/redux/features/course/courseApi'
+import toast from 'react-hot-toast'
 
 type Props = {}
 
@@ -24,7 +26,7 @@ const CreateCourse = (props: Props) => {
     const [prerequisites, setPrerequisites] = useState([{ title: "" }])
     const [courseContent, setCourseContent] = useState([
         {
-            videoUr: "",
+            videoUrl: "",
             title: "",
             videoSection: "Untitled Section",
             description: "",
@@ -39,15 +41,17 @@ const CreateCourse = (props: Props) => {
     ]
 
     )
+    const [createCourse, { isLoading, isSuccess, isError, error }] = useCreateCourseMutation();
     const [courseData, setCourseData] = useState({})
     const handleSubmit = async () => {
         // format benefits array
         const formattedBenefits = benefits.map((benefit) => ({ title: benefit.title }))
+        console.log(formattedBenefits)
         // format prerequisites array
         const formattedPrerequisites = prerequisites.map((prerequisite) => ({ title: prerequisite.title }))
         // format course content array
         const formattedCourseContent = courseContent.map((section) => ({
-            videoUrl: section.videoUr,
+            videoUrl: section.videoUrl,
             title: section.title,
             videoSection: section.videoSection,
             description: section.description,
@@ -73,6 +77,14 @@ const CreateCourse = (props: Props) => {
     }
     const handleCourseCreate = async (e: any) => {
         const data = courseData
+        await createCourse(data)
+
+        if (isSuccess) {
+            toast.success("Course Created Successfully")
+        } else if (isError) {
+            toast.error("Failed to create course")
+            console.log(error)
+        }
 
     }
     return (
