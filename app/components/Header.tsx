@@ -120,7 +120,7 @@ const Header = ({ open, setOpen, activeItem, route, setRoute }: Props) => {
                                         <div className='hidden 800px:block'>
                                             <Link href={"/profile"} passHref>
                                                 <div className="relative inline-flex cursor-pointer items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                                    <span className="font-medium text-gray-600 dark:text-gray-300">{user.name.slice(0, 2)}</span>
+                                                    <span className="font-medium text-gray-600 dark:text-gray-300">{user.name.slice(0, 2).toUpperCase()}</span>
                                                 </div>
                                             </Link>
 
